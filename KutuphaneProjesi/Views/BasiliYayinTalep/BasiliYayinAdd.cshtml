@@ -1,0 +1,61 @@
+﻿@model KutuphaneProjesi.Models.BasiliYayinTalep
+@{
+    ViewData["Title"] = "BasiliYayinAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Basili Yayin Kayıt İşlemi</h1>
+
+<br />
+@using (Html.BeginForm("BasiliYayinAdd","BasiliYayinTalep", FormMethod.Post))
+{
+    @Html.LabelFor(x=> x.Yazar)
+    @Html.TextBoxFor(x => x.Yazar, new {@class = "form-control" ,  id="yazarAdi"})
+    <br />
+    <br />
+    @Html.LabelFor(x => x.YayınAdı)
+    @Html.TextBoxFor(x => x.YayınAdı, new { @class = "form-control" ,id="yayinAdi" })
+    <br />
+    @Html.LabelFor(x => x.Isbn)
+    @Html.TextBoxFor(x => x.Isbn, new { @class = "form-control" , id="isbn"})
+    <br />
+    @Html.LabelFor(x => x.YayinEvi)
+    @Html.TextBoxFor(x => x.YayinEvi, new { @class = "form-control", id="yayinevi" })
+    <br />
+    @Html.LabelFor(x => x.YayınTarihi)
+    @Html.TextBoxFor(x => x.YayınTarihi, new { @class = "form-control",id="yayintarihi" })
+    <br />
+    <button class="btn btn-info">Save</button>
+}
+<script>
+    window.onload = function () {
+        applyDefaultText("yazarAdi", "Lütfen Yazar Adı Giriniz")
+        applyDefaultText("yayinAdi", "Lütfen Yayın Adı Giriniz");
+        applyDefaultText("isbn", "Lütfen ISBN / ISSN NO Giriniz");
+        applyDefaultText("yayinevi", "Lütfen Yayın Evi Giriniz");
+        applyDefaultText("yayintarihi", "Örnek: 2010-3");
+    };
+
+    function applyDefaultText(textBoxId, defaultText) {
+        var textBox = document.getElementById(textBoxId);
+
+        if (textBox.value === "") {
+            textBox.value = defaultText;
+            textBox.style.color = "gray";
+        }
+
+        textBox.onblur = function () {
+            if (textBox.value === "") {
+                textBox.value = defaultText;
+                textBox.style.color = "gray";
+            }
+        };
+
+        textBox.onfocus = function () {
+            if (textBox.value === defaultText) {
+                textBox.value = "";
+                textBox.style.color = "black";
+            }
+        };
+    }
+</script>

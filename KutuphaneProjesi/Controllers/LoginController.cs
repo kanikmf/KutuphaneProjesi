@@ -30,7 +30,7 @@ namespace KutuphaneProjesi.Controllers
 				var useridentity = new ClaimsIdentity(claims, "Login");
 				ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
 				await HttpContext.SignInAsync(principal);
-				return RedirectToAction("Index", "Category");
+				return RedirectToAction("Index", "BasiliYayinTalep");
 			}
 			return View();
 		}

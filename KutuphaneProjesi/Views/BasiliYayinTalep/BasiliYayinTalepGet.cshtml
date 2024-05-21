@@ -1,0 +1,32 @@
+﻿@model KutuphaneProjesi.Models.BasiliYayinTalep
+@{
+    ViewData["Title"] = "BasiliYayinAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Basili Yayin Güncelleme İşlemi</h1>
+
+<br />
+@using (Html.BeginForm("BasiliYayinTalepUpdate", "BasiliYayinTalep", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.BasılıYayınID)
+    <br />
+    @Html.LabelFor(x => x.Yazar)
+    @Html.TextBoxFor(x => x.Yazar, new { @class = "form-control", id = "yazarAdi" })
+    <br />
+    <br />
+    @Html.LabelFor(x => x.YayınAdı)
+    @Html.TextBoxFor(x => x.YayınAdı, new { @class = "form-control", id = "yayinAdi" })
+    <br />
+    @Html.LabelFor(x => x.Isbn)
+    @Html.TextBoxFor(x => x.Isbn, new { @class = "form-control", id = "isbn" })
+    <br />
+    @Html.LabelFor(x => x.YayinEvi)
+    @Html.TextBoxFor(x => x.YayinEvi, new { @class = "form-control", id = "yayinevi" })
+    <br />
+    @Html.LabelFor(x => x.YayınTarihi)
+    @Html.TextBoxFor(x => x.YayınTarihi, new { @class = "form-control", id = "yayintarihi" })
+    <br />
+    @Html.HiddenFor(x => x.İsActive)
+    <button class="btn btn-warning">Save</button>
+}

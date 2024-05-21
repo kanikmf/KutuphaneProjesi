@@ -1,0 +1,100 @@
+﻿@model List<KutuphaneProjesi.Models.ElektronikYayinTalep>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Elektronik Yayin Talep Formu</h1>
+<br />
+<table id="tbl1" class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Yazar Adı</th>
+        <th>YayınAdı</th>
+        <th>YayınEvi</th>
+        <th>Eisbn</th>
+        <th>Nitelik</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    </thead>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.YazarID</td>
+            <td>@x.YazarAdı</td>
+            <td>@x.YayınAdı</td>
+            <td>@x.YayınEvi</td>
+            <td>@x.Eisbn</td>
+            <td>@x.Nitelik</td>
+            <td><a href="/ElektronikYayınTalep/ElektronikYayınTalepDelete/@x.YazarID" class="btn btn-danger">SİL</a></td>
+            <td><a href="/ElektronikYayınTalep/ElektronikYayınGet/@x.YazarID" class="btn btn-success">GÜNCELLE</a></td>
+        </tr>
+    }
+</table>
+<a href="/ElektronikYayınTalep/ElektronikYayınAdd" class="btn btn-primary">Yeni Kayıt</a>
+
+<script>
+    $('#tbl1').DataTable();
+
+    $(".btn-danger").click(function () {
+
+        var yazarID = $(this).attr("YazarID");
+
+        var tr = $(this).parent().parent();
+        console.log(yazarID);
+        Swal.fire({
+            title: 'Silmek İstiyor musunuz?',
+            text: "Bu işlem geri alınamaz!!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet Sil!',
+            cancelButtonText: 'Vazgeç'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "/ElektronikYayinTalep/ElektronikYayinTalepDelete/" + yazarID,
+                    method: "post",
+                    datatype: "json",
+                    success: function (response) {
+                        if (response.isSuccess) {
+                            Swal.fire({
+                                title: 'İşlem Başarılı',
+                                text: response.message,
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonText: 'Tamam'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+
+
+                                    $(tr).fadeOut(2500, function () {
+                                        $(tr).remove();
+                                    });
+
+                                }
+                            });
+                        }
+                        else {
+                            Swal.fire(
+                                'İşlem Başarısız',
+                                response.message,
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+            else {
+                Swal.fire(
+                    'İşlem İptal Edildi',
+                    'Silme işlemi isteğiniz üzerine iptal edilmiştir',
+                    'warning'
+                )
+            }
+        })
+    });
+</script>

@@ -16,5 +16,8 @@ namespace KutuphaneProjesi.Models
                                         "Command Timeout=0");
         }
         public DbSet<AdminPanelUser>AdminPanelUsers { get; set; }
+        public DbSet<BasiliYayinTalep> BasiliYayinTaleps { get; set; }
+       
+        public DbSet<ElektronikYayinTalep> ElektronikYayinTaleps { get; set; }
     }
 }

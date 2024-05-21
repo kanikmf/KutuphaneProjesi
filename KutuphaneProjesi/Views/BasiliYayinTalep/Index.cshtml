@@ -1,0 +1,43 @@
+﻿@model List<KutuphaneProjesi.Models.BasiliYayinTalep>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Basili Yayin Talep Formu</h1>
+<br />
+<table id="tbl1" class="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>YAZAR</th>
+        <th>ISBN / ISSN NO</th>
+        <th>YAYIN EVİ</th>
+        <th>YAYIN TARİHİ / BASKI NO</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    </thead>
+    @foreach(var x in Model)
+    {
+        <tr>
+            <td>@x.BasılıYayınID</td>
+            <td>@x.Yazar</td>
+            <td>@x.Isbn</td>
+            <td>@x.YayinEvi</td>
+            <td>@x.YayınTarihi</td>
+            <td><a href="/BasiliYayinTalep/BasiliYayinDelete/@x.BasılıYayınID" id="Deletebtn" onclick="return confirm('Silmek istediğinize emin misiniz?');" class="btn btn-danger">Delete</a></td>
+            <td><a href="/BasiliYayinTalep/BasiliYayinTalepGet/@x.BasılıYayınID" class="btn btn-success">Update</a></td>
+
+
+        </tr>
+    }
+</table>
+<a href="/BasiliYayinTalep/BasiliYayinAdd" class="btn btn-primary">Yeni Kayıt</a>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" />
+<script>
+    $('#tbl1').DataTable();
+</script>
+
+

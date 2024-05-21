@@ -1,0 +1,33 @@
+﻿@model KutuphaneProjesi.Models.ElektronikYayinTalep
+
+@{
+    ViewData["Title"] = "ElektronikYayınGet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Elektronik Yayın Güncelleme İşlemi</h1>
+
+<br />
+@using (Html.BeginForm("ElektronikYayınTalepUpdate", "ElektronikYayınTalep", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.YazarID)
+    <br />
+    @Html.LabelFor(x => x.YazarAdı)
+    @Html.TextBoxFor(x => x.YazarAdı, new { @class = "form-control", id = "yazarAdi" })
+    <br />
+    <br />
+    @Html.LabelFor(x => x.YayınAdı)
+    @Html.TextBoxFor(x => x.YayınAdı, new { @class = "form-control", id = "yayinAdi" })
+    <br />
+    @Html.LabelFor(x => x.YayınEvi)
+    @Html.TextBoxFor(x => x.YayınEvi, new { @class = "form-control", id = "isbn" })
+    <br />
+    @Html.LabelFor(x => x.Eisbn)
+    @Html.TextBoxFor(x => x.Eisbn, new { @class = "form-control", id = "yayinevi" })
+    <br />
+    @Html.LabelFor(x => x.Nitelik)
+    @Html.TextBoxFor(x => x.Nitelik, new { @class = "form-control", id = "yayintarihi" })
+    <br />
+    @Html.HiddenFor(x => x.IsActive)
+    <button class="btn btn-warning">Save</button>
+}
