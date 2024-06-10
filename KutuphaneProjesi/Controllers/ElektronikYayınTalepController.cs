@@ -2,6 +2,7 @@
 using KutuphaneProjesi.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KutuphaneProjesi.Controllers
 {
@@ -54,15 +55,19 @@ namespace KutuphaneProjesi.Controllers
             elektronikYayınTalepRepository.TUpdate(x);
             return RedirectToAction("Index");
         }
-        public IActionResult ElektronikYayınTalepDelete(int id)
+
+        [HttpPost]
+        [Route("ElektronikYayinTalep/ElektronikYayinTalepDelete/{id}")]
+        public JsonResult ElektronikYayınTalepDelete(int id)
         {
             var x = elektronikYayınTalepRepository.TGet(id);
             x.IsActive = false;
             elektronikYayınTalepRepository.TUpdate(x);
-            return RedirectToAction("Index");
+            return Json(new { isSuccess = true, message = "Kayıt başarıyla silindi." });
         }
+
     }
 }
 
-    
+
 

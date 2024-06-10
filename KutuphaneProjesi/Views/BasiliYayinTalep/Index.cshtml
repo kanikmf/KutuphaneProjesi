@@ -8,25 +8,25 @@
 <br />
 <table id="tbl1" class="table table-bordered">
     <thead>
-    <tr>
-        <th>ID</th>
-        <th>YAZAR</th>
-        <th>ISBN / ISSN NO</th>
-        <th>YAYIN EVİ</th>
-        <th>YAYIN TARİHİ / BASKI NO</th>
-        <th>Sil</th>
-        <th>Güncelle</th>
-    </tr>
-    </thead>
-    @foreach(var x in Model)
-    {
         <tr>
+            <th>ID</th>
+            <th>YAZAR</th>
+            <th>ISBN / ISSN NO</th>
+            <th>YAYIN EVİ</th>
+            <th>YAYIN TARİHİ / BASKI NO</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    @foreach (var x in Model)
+    {
+        <tr data-id="@x.BasılıYayınID">
             <td>@x.BasılıYayınID</td>
             <td>@x.Yazar</td>
             <td>@x.Isbn</td>
             <td>@x.YayinEvi</td>
             <td>@x.YayınTarihi</td>
-            <td><a href="/BasiliYayinTalep/BasiliYayinDelete/@x.BasılıYayınID" id="Deletebtn" onclick="return confirm('Silmek istediğinize emin misiniz?');" class="btn btn-danger">Delete</a></td>
+            <td><button class="btn btn-danger btn-sil">SİL</button></td>
             <td><a href="/BasiliYayinTalep/BasiliYayinTalepGet/@x.BasılıYayınID" class="btn btn-success">Update</a></td>
 
 
@@ -36,8 +36,61 @@
 <a href="/BasiliYayinTalep/BasiliYayinAdd" class="btn btn-primary">Yeni Kayıt</a>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet" />
+
 <script>
-    $('#tbl1').DataTable();
+    $(document).ready(function () {
+        $('#tbl1').DataTable();
+
+        $(".btn-sil").click(function () {
+            var tr = $(this).closest('tr');
+            var BasılıYayınID = tr.data('id');
+            console.log(BasılıYayınID);
+
+            Swal.fire({
+                title: 'Silmek İstiyor musunuz?',
+                text: "Bu işlem geri alınamaz!!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet Sil!',
+                cancelButtonText: 'Vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/BasiliYayinTalep/BasiliYayinDelete/" + BasılıYayınID,
+                        method: "POST",
+                        data: { id: BasılıYayınID },
+                        success: function (response) {
+                            if (response.isSuccess) {
+                                Swal.fire({
+                                    title: 'İşlem Başarılı',
+                                    text: response.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'Tamam'
+                                }).then(() => {
+                                    tr.remove();
+                                });
+                            } else {
+                                Swal.fire(
+                                    'İşlem Başarısız',
+                                    response.message,
+                                    'error'
+                                );
+                            }
+                        }
+                    });
+                } else {
+                    Swal.fire(
+                        'İşlem İptal Edildi',
+                        'Silme işlemi isteğiniz üzerine iptal edilmiştir',
+                        'warning'
+                    );
+                }
+            });
+        });
+    });
 </script>
+
 
 
