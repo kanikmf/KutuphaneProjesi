@@ -19,14 +19,15 @@ namespace KutuphaneProjesi.Controllers
 		[HttpGet]
 		public IActionResult BasiliYayinAdd()
 		{
-			return View();
-		}
+            var ct = basiliYayinTalepRepository.TList().Where(x => x.İsActive == true).ToList();
+            return View(ct);
+        }
 		[HttpPost]
 		public IActionResult BasiliYayinAdd(BasiliYayinTalep p)
 		{
 			p.İsActive = true;
 			basiliYayinTalepRepository.TAdd(p);
-			return RedirectToAction("Index");
+			return View();
 		}
 		public IActionResult BasiliYayinTalepGet(int id)
 		{

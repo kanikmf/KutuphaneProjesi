@@ -1,0 +1,28 @@
+﻿@model List<KutuphaneProjesi.Models.BasiliYayinTalep>
+<table id="tbl1" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>YAZAR</th>
+            <th>ISBN / ISSN NO</th>
+            <th>YAYIN EVİ</th>
+            <th>YAYIN TARİHİ / BASKI NO</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.BasılıYayınID</td>
+            <td>@x.Yazar</td>
+            <td>@x.Isbn</td>
+            <td>@x.YayinEvi</td>
+            <td>@x.YayınTarihi</td>
+            <td><a href="/BasiliYayinTalep/BasiliYayinDelete/@x.BasılıYayınID" id="Deletebtn" onclick="return confirm('Silmek istediğinize emin misiniz?');" class="btn btn-danger">Delete</a></td>
+            <td><a href="/BasiliYayinTalep/BasiliYayinTalepGet/@x.BasılıYayınID" class="btn btn-success">Update</a></td>
+
+
+        </tr>
+    }
+</table>

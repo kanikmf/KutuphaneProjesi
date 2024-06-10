@@ -7,26 +7,44 @@
 <h1>Basili Yayin Kayıt İşlemi</h1>
 
 <br />
-@using (Html.BeginForm("BasiliYayinAdd","BasiliYayinTalep", FormMethod.Post))
+@using (Html.BeginForm("BasiliYayinAdd", "BasiliYayinTalep", FormMethod.Post))
 {
-    @Html.LabelFor(x=> x.Yazar)
-    @Html.TextBoxFor(x => x.Yazar, new {@class = "form-control" ,  id="yazarAdi"})
+    @Html.LabelFor(x => x.Yazar)
+    @Html.TextBoxFor(x => x.Yazar, new { @class = "form-control", id = "yazarAdi" })
     <br />
     <br />
     @Html.LabelFor(x => x.YayınAdı)
-    @Html.TextBoxFor(x => x.YayınAdı, new { @class = "form-control" ,id="yayinAdi" })
+    @Html.TextBoxFor(x => x.YayınAdı, new { @class = "form-control", id = "yayinAdi" })
     <br />
     @Html.LabelFor(x => x.Isbn)
-    @Html.TextBoxFor(x => x.Isbn, new { @class = "form-control" , id="isbn"})
+    @Html.TextBoxFor(x => x.Isbn, new { @class = "form-control", id = "isbn" })
     <br />
     @Html.LabelFor(x => x.YayinEvi)
-    @Html.TextBoxFor(x => x.YayinEvi, new { @class = "form-control", id="yayinevi" })
+    @Html.TextBoxFor(x => x.YayinEvi, new { @class = "form-control", id = "yayinevi" })
     <br />
     @Html.LabelFor(x => x.YayınTarihi)
-    @Html.TextBoxFor(x => x.YayınTarihi, new { @class = "form-control",id="yayintarihi" })
+    @Html.TextBoxFor(x => x.YayınTarihi, new { @class = "form-control", id = "yayintarihi" })
     <br />
-    <button class="btn btn-info">Save</button>
+  
 }
+<button class="btn btn-info" id="saveButton">Save</button>
+<!-- Tablo -->
+<table id="kayitlar" class="table">
+    <thead>
+        <tr>
+            <th>Yazar</th>
+            <th>Yayın Adı</th>
+            <th>ISBN</th>
+            <th>Yayın Evi</th>
+            <th>Yayın Tarihi</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Burada JavaScript ile dinamik olarak eklenen kayıtlar yer alacak -->
+    </tbody>
+</table>
 <script>
     window.onload = function () {
         applyDefaultText("yazarAdi", "Lütfen Yazar Adı Giriniz")
@@ -58,4 +76,32 @@
             }
         };
     }
+
+    // Save butonuna tıklandığında tabloya yeni satır ekle
+    document.getElementById("saveButton").addEventListener("click", function () {
+        var yazar = document.getElementById("yazarAdi").value;
+        var yayinAdi = document.getElementById("yayinAdi").value;
+        var isbn = document.getElementById("isbn").value;
+        var yayinEvi = document.getElementById("yayinevi").value;
+        var yayinTarihi = document.getElementById("yayintarihi").value;
+
+        var tableRef = document.getElementById("kayitlar").getElementsByTagName('tbody')[0];
+        var newRow = tableRef.insertRow();
+
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+        var cell5 = newRow.insertCell(4);
+        var cell6 = newRow.insertCell(5);
+        var cell7 = newRow.insertCell(6);
+
+        cell1.innerHTML = yazar;
+        cell2.innerHTML = yayinAdi;
+        cell3.innerHTML = isbn;
+        cell4.innerHTML = yayinEvi;
+        cell5.innerHTML = yayinTarihi;
+        cell6.innerHTML = '<button class="btn btn-primary">Düzenle</button>';
+        cell7.innerHTML = '<button class="btn btn-danger">Sil</button>';
+    });
 </script>
